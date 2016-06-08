@@ -1,0 +1,26 @@
+<root>
+	<process>
+		<subprocess name="ball2">
+			<logic>1</logic>
+			<time>  t &gt; 0</time>
+			<position_x>0</position_x>
+			<position_y>0</position_y>
+			<position_z>0</position_z>
+			<object>
+				<id>4</id>
+				<type>sphere</type>
+				<radius>2</radius>
+				<translation_x>-19</translation_x>
+				<translation_y>Math.abs((5*Math.cos(t))/(t*0.1))</translation_y>
+				<translation_z>0</translation_z>
+				<scale_x>1</scale_x>
+				<scale_y>1</scale_y>
+				<scale_z>1</scale_z>
+				<rotate_x>1</rotate_x>
+				<rotate_y>1</rotate_y>
+				<rotate_z>1</rotate_z>
+				<color>0x776611</color>
+			</object>
+		</subprocess>
+	</process>
+</root>

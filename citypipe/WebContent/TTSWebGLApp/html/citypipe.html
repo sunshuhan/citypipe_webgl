@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>子过程的加载与显示</title>
+		<meta charset="utf-8">
+		<style>
+			body {
+				font-family: '黑体', sans-serif;
+				background-color: #B0B0B0;
+			}
+			header{
+				font-size: 1.3em;
+				margin:10px;	
+			}
+			#info{
+				margin:10px;
+			}			
+			#container{
+				margin:10px;
+			}
+			#outputmsg{
+				float:right;
+			}	
+		</style>
+	</head>
+	<body>
+		<header>配置点光源和xml文档后提交</header>
+		<div id="info">
+			<p> 点光源颜色： <input type=color name="pointcolor" >
+			点光源位置x:<input type=text name="light_x" size=8 > &nbsp;&nbsp;
+			y:<input type=text name="light_y" size=8>&nbsp;&nbsp;
+			z:<input type=text name="light_z"size=8 >
+			</p>	
+			<p> 选择模型文档： 
+				<input type=checkbox name="xmlfile" value="mixed.xml">mixed.xml 
+				<input type=checkbox name="xmlfile" value="ballfall.xml">ballfall.xml 
+				<input type=checkbox name="xmlfile" value="pipeline.xml">pipeline.xml <br>
+			</p>
+			<button onclick="submitinfo()">submit</button>
+			<button onclick="refresh()">clear</button>
+		</div>
+		<div id="outputmsg">
+			<table border="1" width=400>
+				<tr>
+					<td width=200>attribute</td>
+					<td>value</td>
+				</tr>
+				<tr >
+					<td>时间(s)</td>
+					<td id="timepassed"></td>
+				</tr>
+				<tr >
+					<td>子过程的个数</td>
+					<td id="subprosum"></td>
+				</tr>
+				<tr>
+					<td>物体的个数</td>
+					<td id="objnum"></td>
+				</tr>
+			</table>
+			<br><br>
+			<table border="1" width=400>
+				<tr>
+					<td width=200>选中的物体</td>
+					<td>属性</td>
+				</tr>
+				<tr >
+					<td>类型</td>
+					<td id="pickedtype"></td>
+				</tr>
+				<tr>
+					<td width=200>position_x</td>
+					<td id="position_x"></td>
+				</tr>
+				<tr>
+					<td>position_y</td>
+					<td id="position_y"></td>
+				</tr>
+				<tr>
+					<td>position_z</td>
+					<td id="position_z"></td>
+				</tr>
+			</table>
+			<br><br>	
+			<table border="1" width=400>
+				<tr>
+					<td colspan=2>
+						<select id="tryselect">
+							<option value="0">-请选择要修改的子过程-</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>可修改子过程position_x</td> 
+					<td><input type="text" size="8" value="0" id="changex"></input></td>
+				</tr>
+				<tr>
+					<td>可修改子过程position_y</td> 
+					<td><input type="text" size="8" value="0" id="changey"></input></td>
+				</tr>
+				<tr>
+					<td>可修改子过程position_z</td> 
+					<td><input type="text" size="8" value="0" id="changez"></input></td>
+				</tr>
+				<tr>
+					<td colspan=2><input type="button" value="修改" id="changepos" onclick="changeposition()"></input></td>
+				</tr>
+			</table>
+		</div>
+		<div id="container">
+		<canvas id="webgl" width="800" height="600"></canvas>
+		</div>	
+		<script src="../javascript/three.min.js"></script>
+		<script src="../javascript/jquery-1.7.1.js"></script>
+		<script src="../javascript/ColladaLoader.js"></script>	
+		<script src="../javascript/TrackballControls.js"></script>
+		<script src="../javascript/Subprocess.js"></script>
+		<script src="../javascript/Pobject.js"></script>
+		<script src="../javascript/rendersetting.js"></script>
+		<script src="../javascript/render.js"></script>
+		
+	</body>
+</html>
