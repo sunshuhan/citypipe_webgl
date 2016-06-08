@@ -55,6 +55,10 @@ Pobject.prototype.refresh=function(t,px,py,pz)
 	//this.mesh.position.z= 5*Math.sin(0.1*t);
 	//this.mesh.position.x= 5*Math.cos(0.1*t);
 	//alert(px);
+	t = t||0;
+	px = px||0;
+	py = py||0;
+	pz = pz||0;
 	this.mesh.position.x=eval(this.translation_x)+eval(px);
 	this.mesh.position.y=eval(this.translation_y)+eval(py);
 	this.mesh.position.z=eval(this.translation_z)+eval(pz);
@@ -68,6 +72,10 @@ Pobject.prototype.remove=function()
 }
 Pobject.prototype.render=function(px,py,pz,t)
 {	
+	t = t||0;
+	px = px||0;
+	py = py||0;
+	pz = pz||0;
 	rx=eval(this.rotation_x);
 	ry=eval(this.rotation_y);
 	rz=eval(this.rotation_z);
