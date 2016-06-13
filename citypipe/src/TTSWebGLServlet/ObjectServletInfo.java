@@ -57,7 +57,7 @@ public class ObjectServletInfo extends HttpServlet {
 			NodeList list = doc.getElementsByTagName("id");  
 			Element element = (Element)list.item(0);  
 	        ctrlID = element.getFirstChild().getNodeValue(); 
-	        System.out.println("input id: "+ ctrlID);
+	        System.out.println("input objid: "+ ctrlID);
 		}catch(Exception e){
 			
 		}
@@ -66,7 +66,7 @@ public class ObjectServletInfo extends HttpServlet {
 			DatabaseConnection dbconn = new DatabaseConnection();
 			Connection conn = dbconn.getConnection();
 			StringResult retObj=null;
-		    retObj =GetResponseResultByDatabaseQuery(conn,request);
+		    retObj =GetResponseResultByDatabaseQuery(conn,ctrlID);
 		    if(retObj.error > 0){
 		    	strResponse = retObj.strXmlReqsponse;   	
 		    }
@@ -81,23 +81,50 @@ public class ObjectServletInfo extends HttpServlet {
 	    
 	    
 	}
-	public StringResult GetResponseResultByDatabaseQuery(Connection conn,HttpServletRequest request){
+	//return object model information
+	public StringResult GetResponseResultByDatabaseQuery(Connection conn,String inputid){
 		StringResult retObj=new StringResult();
 		String strXmlReqsponse="";
-		String strname = "";
-		String strpassword = "";
+		String type="";
+		String position_x="";
+		String position_y="";
+		String position_z="";
+		String rotation_x="";
+		String rotation_y="";
+		String rotation_z="";
+		String scale_x="";
+		String scale_y="";
+		String scale_z="";
+		String color="";
+		String att1="";
+		String att2="";
+		String att3="";
+		String att4="";
 	    retObj.error=-1;
-	    String strSQL="select name,password from user where userid =" + ctrlID ;
+	    String strSQL="select objid,type,px,py,pz,rx,ry,rz,sx,sy,sz,color,att1,att2,att3,att4 from objects where objid =" + inputid ;
 	    try{
 	    	ResultSet rs;
 	    	Statement stmt=conn.createStatement();
 	    	rs=stmt.executeQuery(strSQL);
 	    	if(rs.next()){
-	    		strname = rs.getString(1);
-		        strpassword = rs.getString(2);
+	    		type = rs.getString(2);
+	    		position_x = rs.getString(3);
+	    		position_y = rs.getString(4);
+	    		position_z = rs.getString(5);
+	    		rotation_x = rs.getString(6);
+	    		rotation_y = rs.getString(7);
+	    		rotation_z = rs.getString(8);
+	    		scale_x = rs.getString(9);
+	    		scale_y = rs.getString(10);
+	    		scale_z = rs.getString(11);
+	    		color = rs.getString(12);
+	    		att1 = rs.getString(13);
+	    		att2 = rs.getString(14);
+	    		att3 = rs.getString(15);
+	    		att4 =rs.getString(16);		
 	    	}else{
-	    		strname = null;
-		        strpassword = null;
+	    		retObj.error = -1;
+	    		return retObj;
 	    	}
 	        //construct ouput xml
 	    	DocumentBuilderFactory   docbuilderfactory   =   DocumentBuilderFactory.newInstance();
@@ -105,18 +132,105 @@ public class ObjectServletInfo extends HttpServlet {
 	        TransformerFactory tFactory = TransformerFactory.newInstance();
 	        Transformer transformer = tFactory.newTransformer();
 	        Document xmldoc   =   docbuilder.newDocument();
-	        //build xml
+	        //build xml  
 	        Element ObjNode=xmldoc.createElement("object");
-	        Element NameNode=xmldoc.createElement("name");
-	        ObjNode.appendChild(NameNode);
-	        Element PasswordNode=xmldoc.createElement("password");
-	        ObjNode.appendChild(PasswordNode);
-	        Text textName;
-	        textName = xmldoc.createTextNode(strname);
-	        NameNode.appendChild(textName);
-	        Text textPassword;
-	        textPassword = xmldoc.createTextNode(strpassword);
-	        PasswordNode.appendChild(textPassword);
+	        //id tag
+	        Element IdNode=xmldoc.createElement("id");
+	        ObjNode.appendChild(IdNode);
+	        Text textId;
+	        textId = xmldoc.createTextNode(inputid);
+	        IdNode.appendChild(textId);
+	      //type tag
+	        Element TypeNode=xmldoc.createElement("type");
+	        ObjNode.appendChild(TypeNode);
+	        Text textType;
+	        textType = xmldoc.createTextNode(type);
+	        TypeNode.appendChild(textType);
+	      //position_x tag
+	        Element PxNode=xmldoc.createElement("position_x");
+	        ObjNode.appendChild(PxNode);
+	        Text textPx;
+	        textPx = xmldoc.createTextNode(position_x);
+	        PxNode.appendChild(textPx);
+	      //position_y tag
+	        Element PyNode=xmldoc.createElement("position_y");
+	        ObjNode.appendChild(PyNode);
+	        Text textPy;
+	        textPy = xmldoc.createTextNode(position_y);
+	        PyNode.appendChild(textPy);
+	      //position_z tag
+	        Element PzNode=xmldoc.createElement("position_z");
+	        ObjNode.appendChild(PzNode);
+	        Text textPz;
+	        textPz = xmldoc.createTextNode(position_z);
+	        PzNode.appendChild(textPz);
+	      //rotation_x tag
+	        Element RxNode=xmldoc.createElement("rotation_x");
+	        ObjNode.appendChild(RxNode);
+	        Text textRx;
+	        textRx = xmldoc.createTextNode(rotation_x);
+	        RxNode.appendChild(textRx);
+	      //rotation_y tag
+	        Element RyNode=xmldoc.createElement("rotation_y");
+	        ObjNode.appendChild(RyNode);
+	        Text textRy;
+	        textRy = xmldoc.createTextNode(rotation_y);
+	        RyNode.appendChild(textRy);
+	      //rotation_z tag
+	        Element RzNode=xmldoc.createElement("rotation_z");
+	        ObjNode.appendChild(RzNode);
+	        Text textRz;
+	        textRz = xmldoc.createTextNode(rotation_z);
+	        RzNode.appendChild(textRz);
+	      //scale_x tag
+	        Element SxNode=xmldoc.createElement("scale_x");
+	        ObjNode.appendChild(SxNode);
+	        Text textSx;
+	        textSx = xmldoc.createTextNode(scale_x);
+	        SxNode.appendChild(textSx);
+	      //scale_y tag
+	        Element SyNode=xmldoc.createElement("scale_y");
+	        ObjNode.appendChild(SyNode);
+	        Text textSy;
+	        textSy = xmldoc.createTextNode(scale_y);
+	        SyNode.appendChild(textSy);
+	      //scale_z tag
+	        Element SzNode=xmldoc.createElement("scale_z");
+	        ObjNode.appendChild(SzNode);
+	        Text textSz;
+	        textSz = xmldoc.createTextNode(scale_z);
+	        SzNode.appendChild(textSz);
+	      //Color tag
+	        Element ColorNode=xmldoc.createElement("color");
+	        ObjNode.appendChild(ColorNode);
+	        Text textColor;
+	        textColor = xmldoc.createTextNode(color);
+	        ColorNode.appendChild(textColor);
+	      //att1 tag  
+	        Element Att1Node=xmldoc.createElement("att1");
+	        ObjNode.appendChild(Att1Node);
+	        Text textAtt1;
+	        textAtt1 = xmldoc.createTextNode(att1);
+	        Att1Node.appendChild(textAtt1);
+	      //att2 tag  
+	        Element Att2Node=xmldoc.createElement("att2");
+	        ObjNode.appendChild(Att2Node);
+	        Text textAtt2;
+	        textAtt2 = xmldoc.createTextNode(att2);
+	        Att2Node.appendChild(textAtt2);
+	      //att3 tag  
+	        Element Att3Node=xmldoc.createElement("att3");
+	        ObjNode.appendChild(Att3Node);
+	        Text textAtt3;
+	        textAtt3 = xmldoc.createTextNode(att3);
+	        Att3Node.appendChild(textAtt3);
+	      //att1 tag  
+	        Element Att4Node=xmldoc.createElement("att4");
+	        ObjNode.appendChild(Att4Node);
+	        Text textAtt4;
+	        textAtt4 = xmldoc.createTextNode(att4);
+	        Att4Node.appendChild(textAtt4);
+	        
 	        Source sourceDom = new DOMSource(ObjNode);
 	        StringWriter outres = new StringWriter();
 	        Result outputres = new StreamResult(outres);

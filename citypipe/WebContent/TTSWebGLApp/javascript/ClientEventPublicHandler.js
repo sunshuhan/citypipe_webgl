@@ -49,7 +49,7 @@ function prepareXMLRequestMessage(xmlDoc)
 
 function sendRequest(xmlObj, HttpMethod,url)
 {
-	var url="/citypipe/ObjectServlet";
+	//var url="/citypipe/ObjectServlet";
 	if(!HttpMethod) HttpMethod="GET";
 	if(window.XMLHttpRequest)
 	{
