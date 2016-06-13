@@ -72,9 +72,14 @@ public class ObjectServlet extends HttpServlet {
 			Connection conn = dbconn.getConnection();
 			StringResult retObj=null;
 		    retObj =GetResponseResultByDatabaseQuery(conn,request);
-		    strResponse = retObj.strXmlReqsponse;
+		    if(retObj.error > 0){
+		    	strResponse = retObj.strXmlReqsponse;   	
+		    }
+		    else{
+		    	strResponse ="<Error>Error Ocurred!</Error>";
+		    }
 		    PrintWriter out = response.getWriter();
-		    out.println(strResponse);
+	    	out.println(strResponse);
 		} catch (Exception e) {
 			
 		}
@@ -127,8 +132,9 @@ public class ObjectServlet extends HttpServlet {
 	        rs.close();
 	        stmt.close();
             conn.close();
+            retObj.error = 1;
 	    }catch(Exception e){
-	    	
+	    	retObj.error = -1;
 	    }
 		return retObj;
 	}
