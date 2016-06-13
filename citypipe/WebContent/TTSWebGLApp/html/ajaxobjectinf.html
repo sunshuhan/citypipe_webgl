@@ -13,5 +13,16 @@
 	<input  name="But_Get"   type="Button" value="Get" id="But_Get" onClick="return ClickEventActionHandlerButGet('/citypipe/ObjectServletInfo');" />
 	<div id="outputmsg"></div>
 	<canvas id="webgl"></canvas>
+	
+	<script src="../javascript/three.min.js"></script>
+	<script src="../javascript/defaultsetting.js"></script>
+	<script>
+	var g = new THREE.BoxGeometry( 5, 5, 5 );
+	var m = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+	var me = new THREE.Mesh( g, m );
+	scene.add( me );
+	loadpolintlight(5,5,5,10,'0xbbbbbb');
+	renderer.render( scene, camera );
+	</script>
 </body>
 </html>
