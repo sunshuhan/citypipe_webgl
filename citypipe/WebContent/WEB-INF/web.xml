@@ -22,4 +22,14 @@
   <listener>
     <listener-class>TTSWebGLServlet.TTSWebGLListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>ObjectServletInfo</display-name>
+    <servlet-name>ObjectServletInfo</servlet-name>
+    <servlet-class>TTSWebGLServlet.ObjectServletInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ObjectServletInfo</servlet-name>
+    <url-pattern>/ObjectServletInfo</url-pattern>
+  </servlet-mapping>
 </web-app>
