@@ -26,10 +26,7 @@ function ClickEventActionHandlerButGet(url)
 	sendRequest(SendDocXml,"POST",url);
 	return true;
 }
-/* input xml
- <?xml version='1.0'  encoding='gb2312'?>
-<id>39</id>
-  */
+
 function prepareXMLRequestMessage(xmlDoc)
 {
 	var retDataStatus=true;
@@ -82,12 +79,7 @@ function onReadyState()
 		}
 	}
 }
-/* response xml
-<object>
-<name>bob</name>
-<password>bobpw</password>
-</object>
- */
+
 function handlingAjxResponseMessageXML ()
 {	
 	var outputmsg = '';

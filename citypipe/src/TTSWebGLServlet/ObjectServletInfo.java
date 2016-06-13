@@ -81,7 +81,7 @@ public class ObjectServletInfo extends HttpServlet {
 	    
 	    
 	}
-	//return object model information
+	//return object model information 
 	public StringResult GetResponseResultByDatabaseQuery(Connection conn,String inputid){
 		StringResult retObj=new StringResult();
 		String strXmlReqsponse="";
@@ -249,3 +249,25 @@ public class ObjectServletInfo extends HttpServlet {
 	}
 	
 	}
+
+/*
+ example output xml
+<object>
+<id>2</id>
+<type>sphere</type>
+<position_x>15</position_x>
+<position_y>15</position_y>
+<position_z>0</position_z>
+<rotation_x>0</rotation_x>
+<rotation_y>0</rotation_y>
+<rotation_z>0</rotation_z>
+<scale_x>1</scale_x>
+<scale_y>1</scale_y>
+<scale_z>1</scale_z>
+<color>0x00ff00</color>
+<att1>3</att1>
+<att2>0</att2>
+<att3>0</att3>
+<att4>0</att4>
+</object>
+*/
