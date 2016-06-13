@@ -4,7 +4,7 @@ var READY_STATE_LOADING=1;
 var READY_STATE_LOADED=2;
 var READY_STATE_INTERACTIVE=3;
 var READY_STATE_COMPLETE=4;
-function ClickEventActionHandlerButGet()
+function ClickEventActionHandlerButGet(url)
 {
 	var retDataStatus=true;
 	
@@ -23,9 +23,13 @@ function ClickEventActionHandlerButGet()
 	{
 		return false;
 	}
-	sendRequest(SendDocXml,"POST");
+	sendRequest(SendDocXml,"POST",url);
 	return true;
 }
+/* input xml
+ <?xml version='1.0'  encoding='gb2312'?>
+<id>39</id>
+  */
 function prepareXMLRequestMessage(xmlDoc)
 {
 	var retDataStatus=true;
@@ -43,7 +47,7 @@ function prepareXMLRequestMessage(xmlDoc)
 }
 
 
-function sendRequest(xmlObj, HttpMethod)
+function sendRequest(xmlObj, HttpMethod,url)
 {
 	var url="/citypipe/ObjectServlet";
 	if(!HttpMethod) HttpMethod="GET";
@@ -70,44 +74,34 @@ function sendRequest(xmlObj, HttpMethod)
 
 function onReadyState()
 {
-	//alert("s");
-	//var ready= xRequest.readyState;
 	if(xRequest.readyState==4)  
-     {  
-      if(xRequest.status==200)  
-      {//
-    	// var strdata = xRequest.responseText;
-    	//    alert(strdata);
-		handlingAjxResponseMessageXML();
-		
-	  }
+	{  
+		if(xRequest.status==200)  
+		{
+			handlingAjxResponseMessageXML();
+		}
 	}
 }
-
+/* response xml
+<object>
+<name>bob</name>
+<password>bobpw</password>
+</object>
+ */
 function handlingAjxResponseMessageXML ()
-{
+{	
+	var outputmsg = '';
 	var outMsg = document.getElementById("outputmsg");
-    if(xRequest.responseText.length>0)
-    {
-       var xmlDoc = xRequest.responseXML;
-       var nameNodeList = xmlDoc.getElementsByTagName("name");
-       var nameNodeLength = nameNodeList.length;
-       if(nameNodeLength < 1){
-    	   outMsg.innerHTML = "no such id in the database;"
-       }
-       var nameNode = nameNodeList[0];
-       var pwNodeList = xmlDoc.getElementsByTagName("password");
-       var pwNodeLength = pwNodeList.length;
-       var pwNode = pwNodeList[0];
-       
-       outMsg.innerHTML = "name: "+nameNode.childNodes[0].nodeValue +
-       "  password: "+pwNode.childNodes[0].nodeValue;
-      
-    }
-   else
-   {
-      alert("Error ocurred on Server!");
-   }
+	var xmlDoc = xRequest.responseXML;
+	if(xmlDoc.getElementsByTagName("Error").length > 0)
+	outMsg.innerHTML = "no such id in the database";
+	else{
+		var properties = xmlDoc.documentElement.childNodes;
+		for(var i = 0 ; i < properties.length; i++){
+			outputmsg += properties[i].nodeName + ': ' +properties[i].childNodes[0].nodeValue + '<br>';
+		}
+		outMsg.innerHTML = outputmsg;
+	}
 }
 
 function SetControlValue(controlID,cntrolVal)
