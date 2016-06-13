@@ -5,21 +5,16 @@ import java.util.*;
 import org.w3c.dom.*; 
 import javax.xml.parsers.*; 
 import java.io.*; 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
+
+import org.w3c.dom.*;
 /**
  * Servlet implementation class ObjectServlet
  */
@@ -72,9 +67,14 @@ public class ObjectServletInfo extends HttpServlet {
 			Connection conn = dbconn.getConnection();
 			StringResult retObj=null;
 		    retObj =GetResponseResultByDatabaseQuery(conn,request);
-		    strResponse = retObj.strXmlReqsponse;
+		    if(retObj.error > 0){
+		    	strResponse = retObj.strXmlReqsponse;   	
+		    }
+		    else{
+		    	strResponse ="<Error>Error Ocurred!</Error>";
+		    }
 		    PrintWriter out = response.getWriter();
-		    out.println(strResponse);
+	    	out.println(strResponse);
 		} catch (Exception e) {
 			
 		}
@@ -84,8 +84,8 @@ public class ObjectServletInfo extends HttpServlet {
 	public StringResult GetResponseResultByDatabaseQuery(Connection conn,HttpServletRequest request){
 		StringResult retObj=new StringResult();
 		String strXmlReqsponse="";
-		//String strname = "";
-		//String strpassword = "";
+		String strname = "";
+		String strpassword = "";
 	    retObj.error=-1;
 	    String strSQL="select name,password from user where userid =" + ctrlID ;
 	    try{
@@ -93,11 +93,11 @@ public class ObjectServletInfo extends HttpServlet {
 	    	Statement stmt=conn.createStatement();
 	    	rs=stmt.executeQuery(strSQL);
 	    	if(rs.next()){
-	    	//	strname = rs.getString(1);
-		    //    strpassword = rs.getString(2);
+	    		strname = rs.getString(1);
+		        strpassword = rs.getString(2);
 	    	}else{
-	    	//	strname = null;
-		     //   strpassword = null;
+	    		strname = null;
+		        strpassword = null;
 	    	}
 	        //construct ouput xml
 	    	DocumentBuilderFactory   docbuilderfactory   =   DocumentBuilderFactory.newInstance();
@@ -109,10 +109,14 @@ public class ObjectServletInfo extends HttpServlet {
 	        Element ObjNode=xmldoc.createElement("object");
 	        Element NameNode=xmldoc.createElement("name");
 	        ObjNode.appendChild(NameNode);
+	        Element PasswordNode=xmldoc.createElement("password");
+	        ObjNode.appendChild(PasswordNode);
 	        Text textName;
-	       // textName = xmldoc.createTextNode(strname);
-	       // NameNode.appendChild(textName);
-	        
+	        textName = xmldoc.createTextNode(strname);
+	        NameNode.appendChild(textName);
+	        Text textPassword;
+	        textPassword = xmldoc.createTextNode(strpassword);
+	        PasswordNode.appendChild(textPassword);
 	        Source sourceDom = new DOMSource(ObjNode);
 	        StringWriter outres = new StringWriter();
 	        Result outputres = new StreamResult(outres);
@@ -123,8 +127,9 @@ public class ObjectServletInfo extends HttpServlet {
 	        rs.close();
 	        stmt.close();
             conn.close();
+            retObj.error = 1;
 	    }catch(Exception e){
-	    	
+	    	retObj.error = -1;
 	    }
 		return retObj;
 	}
