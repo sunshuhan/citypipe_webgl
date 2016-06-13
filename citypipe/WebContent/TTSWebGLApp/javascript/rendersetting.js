@@ -56,7 +56,7 @@ function render() {
 
 				//���ݾ�����ʱ��t������subforxml�����е��ӹ���
 	for(var i=0;i<subforxml.length;i++)
-		subforxml[i].refresh(t);
+		subforxml[i].render(t);
 	controls.update();
 	renderer.render( scene, camera );
 }

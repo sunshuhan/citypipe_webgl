@@ -146,20 +146,20 @@ public class ObjectServletInfo extends HttpServlet {
 	        Text textType;
 	        textType = xmldoc.createTextNode(type);
 	        TypeNode.appendChild(textType);
-	      //position_x tag
-	        Element PxNode=xmldoc.createElement("position_x");
+	      //translation_x tag    (position_x)
+	        Element PxNode=xmldoc.createElement("translation_x");
 	        ObjNode.appendChild(PxNode);
 	        Text textPx;
 	        textPx = xmldoc.createTextNode(position_x);
 	        PxNode.appendChild(textPx);
-	      //position_y tag
-	        Element PyNode=xmldoc.createElement("position_y");
+	      //translation_y tag
+	        Element PyNode=xmldoc.createElement("translation_y");
 	        ObjNode.appendChild(PyNode);
 	        Text textPy;
 	        textPy = xmldoc.createTextNode(position_y);
 	        PyNode.appendChild(textPy);
-	      //position_z tag
-	        Element PzNode=xmldoc.createElement("position_z");
+	      //translation_z tag
+	        Element PzNode=xmldoc.createElement("translation_z");
 	        ObjNode.appendChild(PzNode);
 	        Text textPz;
 	        textPz = xmldoc.createTextNode(position_z);

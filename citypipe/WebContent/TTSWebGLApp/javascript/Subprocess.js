@@ -14,34 +14,10 @@ Subprocess.prototype.addobj=function(obj)
 {
 	this.pipeobj.push(obj);
 }
-Subprocess.prototype.render=function()
+
+Subprocess.prototype.render=function(t)
 {
-	//逻辑关系成立
-	if(this.logic ==1)
-	{
-		//时间关系成立
-		if(eval(this.time)==true)
-		{
-			//如果该子过程未添加
-			if(this.isadd==0)
-			{
-				//子过程的位置关系适用于其包含的所有物体
-				var l = this.pipeobj.length;
-				px=this.position_x ;
-				py=this.position_y ;
-				pz=this.position_z;
-				//添加子过程下所有物体，初始时间t为0
-				for(var i=0;i<l;i++)
-				{
-					this.pipeobj[i].render(px,py,pz);	
-				}
-				this.isadd=1;
-			}
-		}
-	}
-}
-Subprocess.prototype.refresh=function(t)
-{
+	t = t||0;
 	//逻辑关系
 	if(this.logic ==1)
 	{
@@ -74,7 +50,6 @@ Subprocess.prototype.refresh=function(t)
 	if(eval(this.time)!=true || t=="remove")
 	{
 			var l = this.pipeobj.length;
-
 			for(var i=0;i<l;i++)
 			this.pipeobj[i].remove();
 	}
