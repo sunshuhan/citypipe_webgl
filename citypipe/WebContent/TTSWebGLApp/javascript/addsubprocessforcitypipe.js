@@ -1,19 +1,13 @@
 /*
  * add objects and subprocess to subforxml[] ,(stores all the models information to be rendered)
- * */			
-var changepos=0;
-function changeposition()
-{
-	changepos=1;
-}	
+ * */				
 			/** add object directly
 			var g = new THREE.BoxGeometry( 5, 5, 5 );
 			var m = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
 			var me = new THREE.Mesh( g, m );
 			scene.add( me );
 			**/
-var xmlfilename;
-			
+var xmlfilename;		
 //submitinfo() parse corresponding xml file , add subprocess to subforxml[](defined in rendersetting.js)
 function submitinfo()
 {
@@ -102,18 +96,15 @@ function submitinfo()
 					subforxml.push(sub);
 				}
 				},
-
 				complete: function()
 				{	
 					document.getElementById("subprosum").innerHTML=subforxml.length;
 					document.getElementById("objnum").innerHTML=objnum;	
 				}
 			});
-						//ajax��ȡ����xml�ѽ���
 		}
 	}		
 }
-			//try add object directly
-
-			//var testobj = new THREE.Mesh( THREE.BoxGeometry( 1, 1, 1 ), THREE.MeshBasicMaterial( { color: 0xffff00 } ));
-			//scene.add( testobj );
+//try add object directly
+//var testobj = new THREE.Mesh( THREE.BoxGeometry( 1, 1, 1 ), THREE.MeshBasicMaterial( { color: 0xffff00 } ));
+//scene.add( testobj );

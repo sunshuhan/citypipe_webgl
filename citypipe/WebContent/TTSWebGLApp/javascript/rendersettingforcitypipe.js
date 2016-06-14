@@ -1,9 +1,11 @@
 /*
  * animation setting, decide how to render the scene
  * */
-function animate() {
-	requestAnimationFrame( animate );
-	render();
+//changeposition() 
+var changepos=0;
+function changeposition()
+{
+	changepos=1;
 }
 function render() {
 	if(movetop)camera.position.y+= 0.2;
@@ -66,5 +68,9 @@ function render() {
 		subforxml[i].render(t);
 	trackballControl.update();
 	renderer.render( scene, camera );
+}
+function animate() {
+	requestAnimationFrame( animate );
+	render();
 }
 animate();

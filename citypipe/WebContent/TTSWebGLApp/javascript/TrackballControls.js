@@ -417,7 +417,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 			_panEnd.copy(_panStart);
 
 		}
-		/*
+		
 		//拾取物体后改变颜色
 		
 				mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
@@ -428,16 +428,10 @@ THREE.TrackballControls = function ( object, domElement ) {
 				//intersects = raycaster.intersectObjects( objects );
 				intersects = raycaster.intersectObjects( scene.children );
 				if ( intersects.length > 0 ) {
-						intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );
-						
-						document.getElementById("pickedtype").innerHTML = intersects[ 0 ].object.objname;
-						document.getElementById("position_x").innerHTML = intersects[ 0 ].object.position.x;
-						document.getElementById("position_y").innerHTML = intersects[ 0 ].object.position.y;
-						document.getElementById("position_z").innerHTML = intersects[ 0 ].object.position.z;
-						subforxml[0].pipeobj[1].scale_x=5;											
+						intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );			
 				}
 				//
-				*/
+				
 		document.addEventListener( 'mousemove', mousemove, false );
 		document.addEventListener( 'mouseup', mouseup, false );
 

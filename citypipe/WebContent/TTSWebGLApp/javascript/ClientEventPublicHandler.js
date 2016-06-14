@@ -94,12 +94,36 @@ function handlingAjxResponseMessageXML ()
 		}
 		outMsg.innerHTML = outputmsg;
 	}
+	//if response xml is object model information, render
+	if(xmlDoc.getElementsByTagName("type").length > 0){
+		renderxml(xRequest.responseXML);
+	}
 }
 
-function SetControlValue(controlID,cntrolVal)
+function renderxml(xml)
 {
-	var  controlobj=document.getElementById(controlID);
- 	controlobj.value=cntrolVal;  
+	 var objects = xml.getElementsByTagName("object");
+	 for(var o=0;o<objects.length;o++)
+		{
+			if(objects[o].getElementsByTagName("type")[0].childNodes[0].nodeValue=='sphere')
+			{
+				var id = objects[o].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+				var translation_x = objects[o].getElementsByTagName("translation_x")[0].childNodes[0].nodeValue;
+				var translation_y = objects[o].getElementsByTagName("translation_y")[0].childNodes[0].nodeValue;
+				var translation_z = objects[o].getElementsByTagName("translation_z")[0].childNodes[0].nodeValue;
+				var scale_x = objects[o].getElementsByTagName("scale_x")[0].childNodes[0].nodeValue;
+				var scale_y = objects[o].getElementsByTagName("scale_y")[0].childNodes[0].nodeValue;
+				var scale_z = objects[o].getElementsByTagName("scale_z")[0].childNodes[0].nodeValue;
+				var rotate_x = objects[o].getElementsByTagName("rotation_x")[0].childNodes[0].nodeValue;
+				var rotate_y = objects[o].getElementsByTagName("rotation_y")[0].childNodes[0].nodeValue;
+				var rotate_z = objects[o].getElementsByTagName("rotation_z")[0].childNodes[0].nodeValue;
+				var color =parseInt(objects[o].getElementsByTagName("color")[0].childNodes[0].nodeValue);
+				var radius = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
+				var object = new TTSObject(id,'sphere',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
+						rotate_y,rotate_z,radius,color);
+				TTSModels.push(object);
+			}
+		}
 }
 
 

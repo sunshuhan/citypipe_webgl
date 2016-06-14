@@ -19,10 +19,11 @@ var last=Date.now();
 var t=0;
 //intersects stores all the picked objects;
 var intersects=[];
+var TTSModels =[];//function same as subforxml, subforxml is used in citypipe.html,TTSModels is used in ajaxobjectinf,html
 //subforxml stores all the models to be rendered
 var subforxml = [];
 window.addEventListener( 'resize', onWindowResize, false );
-trackballControl.domElement.addEventListener( 'mousedown', onMouseDown, false );
+//trackballControl.domElement.addEventListener( 'mousedown', onMouseDown, false );
 document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 document.addEventListener('keydown',onDocumentKeyDown,false);
 document.addEventListener('keyup',onDocumentKeyUp,false);	
@@ -40,7 +41,7 @@ function refresh()
 }
 
 //handle picking, change the color of the picked object
-function onMouseDown(event){
+/*function onMouseDown(event){
 	mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
 	mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
 	raycaster.setFromCamera( mouse, camera );
@@ -49,7 +50,7 @@ function onMouseDown(event){
 	if ( intersects.length > 0 ) {
 			intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );
 	}
-}
+}*/
 function onDocumentTouchStart( event ) {	
 	event.preventDefault();
 	event.clientX = event.touches[0].clientX;
@@ -85,4 +86,5 @@ function onWindowResize() {
 	camera.updateProjectionMatrix();
 	//renderer.setSize( window.innerWidth, window.innerHeight );
 }
+
 
