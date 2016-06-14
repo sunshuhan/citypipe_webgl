@@ -15,20 +15,17 @@ var trackballControl = new THREE.TrackballControls( camera, renderer.domElement 
 var mouse = new THREE.Vector2();
 
 var raycaster = new THREE.Raycaster();
+//initial time
 var last=Date.now();
 var t=0;
 //intersects stores all the picked objects;
 var intersects=[];
-var TTSModels =[];//function same as subforxml, subforxml is used in citypipe.html,TTSModels is used in ajaxobjectinf,html
-//subforxml stores all the models to be rendered
-var subforxml = [];
+var TTSModels =[];//function same as subforxml,used in ajaxobjectinf.html
+var subforxml = [];//subforxml stores all the models to be rendered used in citypipe.html related file
 window.addEventListener( 'resize', onWindowResize, false );
-//trackballControl.domElement.addEventListener( 'mousedown', onMouseDown, false );
 document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 document.addEventListener('keydown',onDocumentKeyDown,false);
 document.addEventListener('keyup',onDocumentKeyUp,false);	
-//var obj1 = new Pobject(5,'sphere',0,0,0,1,1,1,0,0,0,10,44);
-//obj1.render();
 function loadpolintlight(x,y,z,i,color)
 {
 	light = new THREE.PointLight( color, i );
@@ -82,9 +79,7 @@ function onDocumentKeyUp(event)
 	}
 }
 function onWindowResize() {
-	//camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-	//renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
 

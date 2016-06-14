@@ -10,16 +10,19 @@
 			position:fixed;
 			right:0;
 			top:0;
+			z-index:1;
+			border: solid 1px;
 		}
 	</style>
 </head>
 <script src="../javascript/ClientEventPublicHandler.js"></script>
 <body>
-	<h2>get object information from input object id, table objects stores objectid 1,2,currently</h2>
-	<input  name="id"  style="width:200px" type="Text" value="" id="input_id" />
+	<h2>get object information from object id</h2>
+	<h2>table objects stores objectid 1,2,currently</h2>
+	<input  name="id"  style="width:200px" type="Text" value="" id="input_id" placeholder="object id"/>
 	<input  name="But_Get"   type="Button" value="Get" id="But_Get" onClick="return ClickEventActionHandlerButGet('/citypipe/ObjectServletInfo');" />
 	<div id="outputmsg"></div>
-	<div id="view"><canvas id="webgl" width="600" height="400"></canvas></div>
+	<div id="view"><canvas id="webgl" width="800" height="600"></canvas></div>
 	
 	<script src="../javascript/three.min.js"></script>
 	<script src="../javascript/TrackballControls.js"></script>

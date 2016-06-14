@@ -120,10 +120,11 @@ function renderxml(xml)
 				var color =parseInt(objects[o].getElementsByTagName("color")[0].childNodes[0].nodeValue);
 				var radius = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
 				var object = new TTSObject(id,'sphere',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
-						rotate_y,rotate_z,radius,color);
+						rotate_y,rotate_z,color,radius);
 				TTSModels.push(object);
 			}
 		}
+
 }
 
 

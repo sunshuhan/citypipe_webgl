@@ -418,20 +418,18 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 		}
 		
-		//拾取物体后改变颜色
+		//pick objects, change color of the picked object
 		
-				mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
-				mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
-
-				raycaster.setFromCamera( mouse, camera );
-				
-				//intersects = raycaster.intersectObjects( objects );
-				intersects = raycaster.intersectObjects( scene.children );
-				if ( intersects.length > 0 ) {
-						intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );			
-				}
-				//
-				
+		mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
+		mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
+		raycaster.setFromCamera( mouse, camera );
+		//intersects = raycaster.intersectObjects( objects );
+		intersects = raycaster.intersectObjects( scene.children );
+		if ( intersects.length > 0 ) {
+			intersects[0].object.material.color.setHex(Math.random() * 0xffffff  );
+			console.log(intersects[0].object.material.color);
+		}
+		
 		document.addEventListener( 'mousemove', mousemove, false );
 		document.addEventListener( 'mouseup', mouseup, false );
 
