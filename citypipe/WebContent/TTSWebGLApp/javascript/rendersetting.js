@@ -57,7 +57,7 @@ function render() {
 				//���ݾ�����ʱ��t������subforxml�����е��ӹ���
 	for(var i=0;i<subforxml.length;i++)
 		subforxml[i].render(t);
-	controls.update();
+	trackballControl.update();
 	renderer.render( scene, camera );
 }
 animate();
