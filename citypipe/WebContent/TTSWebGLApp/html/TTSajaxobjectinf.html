@@ -23,7 +23,7 @@
 	<input  name="But_Get"   type="Button" value="Get" id="But_Get" onClick="return ClickEventActionHandlerButGet('/citypipe/ObjectServletInfo');" />
 	<div id="outputmsg"></div>
 	<div id="view"><canvas id="webgl" width="800" height="600"></canvas></div>
-	
+	<div id="time">t:<span id = "time_elapsed"></span></div>
 	<script src="../javascript/three.min.js"></script>
 	<script src="../javascript/TrackballControls.js"></script>
 	<script src="../javascript/TTSDefaultSetting.js"></script>
@@ -40,14 +40,19 @@
 	var light = new THREE.PointLight( 0x808080, 1, 100 );//add point light
 	light.position.set( 10, 10, 50 );
 	scene.add( light );
-	/*add object through TTSObject class
-	var obj = new TTSObject(7,'sphere',0,0,0,1,1,1,0,0,0,5,44355);
-	obj.addToScene();
-	*/
+	//add object through TTSObject class
+	//var obj = new TTSObject(7,'sphere','t','t',0,1,1,1,0,0,0,0x0000ff,5);
+	//TTSModels.push(obj);
+	
 	function render() {
+		var now = Date.now();
+		t = (now-last)*0.001;
+		document.getElementById("time_elapsed").innerHTML = Math.floor(t);
 		for(var i = 0 ; i < TTSModels.length; i++){
-			TTSModels[i].addToScene();
+			TTSModels[i].addToScene(t);
 		}
+
+		//TTSModels[0].mesh.position.x = t;
 		trackballControl.update();
 		renderer.render( scene, camera );
 	}
