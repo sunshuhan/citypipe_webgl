@@ -17,6 +17,8 @@ var mouse = new THREE.Vector2();
 var raycaster = new THREE.Raycaster();
 var last=Date.now();
 var t=0;
+//intersects stores all the picked objects;
+var intersects=[];
 //subforxml stores all the models to be rendered
 var subforxml = [];
 window.addEventListener( 'resize', onWindowResize, false );
@@ -36,6 +38,8 @@ function refresh()
 {
 	window.location.reload();
 }
+
+//handle picking, change the color of the picked object
 function onMouseDown(event){
 	mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
 	mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
@@ -44,10 +48,6 @@ function onMouseDown(event){
 	intersects = raycaster.intersectObjects( scene.children );
 	if ( intersects.length > 0 ) {
 			intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );
-			//document.getElementById("pickedtype").innerHTML = intersects[ 0 ].object.objname;
-			//document.getElementById("position_x").innerHTML = intersects[ 0 ].object.position.x;
-			//document.getElementById("position_y").innerHTML = intersects[ 0 ].object.position.y;
-			//document.getElementById("position_z").innerHTML = intersects[ 0 ].object.position.z;
 	}
 }
 function onDocumentTouchStart( event ) {	

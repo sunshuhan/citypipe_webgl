@@ -12,7 +12,8 @@ function render() {
 	if(moveright)camera.position.x+= 0.2;
 	var now = Date.now();
 	t = (now-last)*0.001;
-	document.getElementById("timepassed").innerHTML = Math.floor(t);				
+	document.getElementById("timepassed").innerHTML = Math.floor(t);	
+	//update select
 	if(t>0)
 	{
 		var addselect = document.getElementById("tryselect");
@@ -28,7 +29,7 @@ function render() {
 			}
 		}			
 	}	
-
+	//get select value and update subforxml
 	if(t>1)
 	{
 		var addselect = document.getElementById("tryselect");
@@ -53,8 +54,14 @@ function render() {
 			}	
 		}
 	}
-
-				//���ݾ�����ʱ��t������subforxml�����е��ӹ���
+	//update picked obj info
+	if ( intersects.length > 0 ) {
+	document.getElementById("pickedtype").innerHTML = intersects[ 0 ].object.objname;
+	document.getElementById("position_x").innerHTML = intersects[ 0 ].object.position.x;
+	document.getElementById("position_y").innerHTML = intersects[ 0 ].object.position.y;
+	document.getElementById("position_z").innerHTML = intersects[ 0 ].object.position.z;
+	}
+	//render and refresh subforxml
 	for(var i=0;i<subforxml.length;i++)
 		subforxml[i].render(t);
 	trackballControl.update();
