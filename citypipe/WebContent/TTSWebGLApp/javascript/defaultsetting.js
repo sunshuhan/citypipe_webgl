@@ -1,5 +1,5 @@
 /*
- * default setting, including canvas, scene,camera,trackballcontrols...
+ * default setting, including canvas, scene, camera, trackballcontrols...
  * */
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({
@@ -10,16 +10,17 @@ var canvas=document.getElementById('webgl');
 var rect = canvas.getBoundingClientRect();
 camera = new THREE.PerspectiveCamera(45,canvas.width/canvas.height,1,1000);
 camera.position.set( 10, 10, 50 );
-var controls = new THREE.TrackballControls( camera, renderer.domElement );
+
+var trackballControl = new THREE.TrackballControls( camera, renderer.domElement );
 var mouse = new THREE.Vector2();
-var objects=[];
+
 var raycaster = new THREE.Raycaster();
 var last=Date.now();
 var t=0;
 //subforxml stores all the models to be rendered
 var subforxml = [];
 window.addEventListener( 'resize', onWindowResize, false );
-//document.addEventListener( 'mousedown', onDocumentMouseDown, false );�ڹ켣�����js�ļ����޸�mousedown����ʵ��ʰȡ
+trackballControl.domElement.addEventListener( 'mousedown', onMouseDown, false );
 document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 document.addEventListener('keydown',onDocumentKeyDown,false);
 document.addEventListener('keyup',onDocumentKeyUp,false);	
@@ -35,7 +36,20 @@ function refresh()
 {
 	window.location.reload();
 }
-
+function onMouseDown(event){
+	mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
+	mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
+	raycaster.setFromCamera( mouse, camera );
+	//intersects = raycaster.intersectObjects( objects );
+	intersects = raycaster.intersectObjects( scene.children );
+	if ( intersects.length > 0 ) {
+			intersects[ 0 ].object.material.color.setHex(Math.random() * 0xffffff  );
+			//document.getElementById("pickedtype").innerHTML = intersects[ 0 ].object.objname;
+			//document.getElementById("position_x").innerHTML = intersects[ 0 ].object.position.x;
+			//document.getElementById("position_y").innerHTML = intersects[ 0 ].object.position.y;
+			//document.getElementById("position_z").innerHTML = intersects[ 0 ].object.position.z;
+	}
+}
 function onDocumentTouchStart( event ) {	
 	event.preventDefault();
 	event.clientX = event.touches[0].clientX;

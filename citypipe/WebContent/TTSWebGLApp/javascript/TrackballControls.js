@@ -417,6 +417,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 			_panEnd.copy(_panStart);
 
 		}
+		/*
 		//拾取物体后改变颜色
 		
 				mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
@@ -433,12 +434,10 @@ THREE.TrackballControls = function ( object, domElement ) {
 						document.getElementById("position_x").innerHTML = intersects[ 0 ].object.position.x;
 						document.getElementById("position_y").innerHTML = intersects[ 0 ].object.position.y;
 						document.getElementById("position_z").innerHTML = intersects[ 0 ].object.position.z;
-						subforxml[0].pipeobj[1].scale_x=5;						
-						subforxml[0].pipeobj[1].scale_y=2;						
-						subforxml[0].pipeobj[1].scale_y=2;	
-render();						
+						subforxml[0].pipeobj[1].scale_x=5;											
 				}
 				//
+				*/
 		document.addEventListener( 'mousemove', mousemove, false );
 		document.addEventListener( 'mouseup', mouseup, false );
 
