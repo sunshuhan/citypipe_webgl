@@ -30,7 +30,8 @@
 		<div id="time">time t: <span id = "time_elapsed"></span></div>
 		<div>
 			<button onclick = clearCanvas()>clear canvas</button>
-			<button onclick = resetTime()>rest time</button>
+			<button onclick = resetTime()>reset time</button>
+			<button onclick = resetCamera()>reset camera</button>
 		</div>
 	</div>
 	
@@ -47,6 +48,9 @@
 	}
 	function resetTime(){
 		last = Date.now();
+	}
+	function resetCamera(){
+		camera.position.set( 10, 10, 50 );
 	}
 	var light = new THREE.AmbientLight( 0x404040 ); // add ambient light,soft white light
 	scene.add( light );
