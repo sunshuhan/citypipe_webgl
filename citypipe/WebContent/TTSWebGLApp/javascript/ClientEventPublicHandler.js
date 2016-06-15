@@ -88,45 +88,87 @@ function handlingAjxResponseMessageXML ()
 	else{
 		var properties = xmlDoc.documentElement.childNodes;
 		for(var i = 0 ; i < properties.length; i++){
-			outputmsg += properties[i].nodeName + ': ' +properties[i].childNodes[0].nodeValue + '<br>';
+			outputmsg += properties[i].nodeName + ' = ' +properties[i].childNodes[0].nodeValue+'<br> ';
 		}
-		outMsg.innerHTML = outputmsg;
+		outMsg.innerHTML = "response information: "+'<br>'+ outputmsg + '<br>';
 	}
 	//if response xml is object model information, render
 	if(xmlDoc.getElementsByTagName("type").length > 0){
-		renderxml(xRequest.responseXML);
+		renderobjxml(xRequest.responseXML);
 	}
 }
 
-function renderxml(xml)
+function renderobjxml(xml)
 {
 	 var objects = xml.getElementsByTagName("object");
 	 for(var o = 0; o < objects.length; o++)
 		{
-			if(objects[o].getElementsByTagName("type")[0].childNodes[0].nodeValue == 'sphere')
-			{
-				var id = objects[o].getElementsByTagName("id")[0].childNodes[0].nodeValue;
-				var translation_x = objects[o].getElementsByTagName("translation_x")[0].childNodes[0].nodeValue;
-				var translation_y = objects[o].getElementsByTagName("translation_y")[0].childNodes[0].nodeValue;
-				var translation_z = objects[o].getElementsByTagName("translation_z")[0].childNodes[0].nodeValue;
-				var scale_x = objects[o].getElementsByTagName("scale_x")[0].childNodes[0].nodeValue;
-				var scale_y = objects[o].getElementsByTagName("scale_y")[0].childNodes[0].nodeValue;
-				var scale_z = objects[o].getElementsByTagName("scale_z")[0].childNodes[0].nodeValue;
-				var rotate_x = objects[o].getElementsByTagName("rotation_x")[0].childNodes[0].nodeValue;
-				var rotate_y = objects[o].getElementsByTagName("rotation_y")[0].childNodes[0].nodeValue;
-				var rotate_z = objects[o].getElementsByTagName("rotation_z")[0].childNodes[0].nodeValue;
-				var color = parseInt(objects[o].getElementsByTagName("color")[0].childNodes[0].nodeValue);
-				var radius = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
-				var object = new TTSObject(id,'sphere',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
-						rotate_y,rotate_z,color,radius);
-				for(var i = 0 ; i < TTSModels.length; i++){
-					if(TTSModels[i].id == id)
-						alert("object:" + id +" ALREADY EXISTS!");
-				}
-				TTSModels.push(object);
-			}
+		 	let type = objects[o].getElementsByTagName("type")[0].childNodes[0].nodeValue;
+		 	let exist = false;
+		 	switch(type){
+		 	case 'sphere': if(objects[o].getElementsByTagName("type")[0].childNodes[0].nodeValue == 'sphere')
+		 					{
+						 		var id = objects[o].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+								for(var i = 0 ; i < TTSModels.length; i++){
+									if(TTSModels[i].id == id){
+										exist = true;
+										alert("object:" + id +" ALREADY EXISTS!");
+										break;
+									}
+								}
+								if(exist === false){
+			 						var id = objects[o].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+			 						var translation_x = objects[o].getElementsByTagName("translation_x")[0].childNodes[0].nodeValue;
+			 						var translation_y = objects[o].getElementsByTagName("translation_y")[0].childNodes[0].nodeValue;
+			 						var translation_z = objects[o].getElementsByTagName("translation_z")[0].childNodes[0].nodeValue;
+			 						var scale_x = objects[o].getElementsByTagName("scale_x")[0].childNodes[0].nodeValue;
+			 						var scale_y = objects[o].getElementsByTagName("scale_y")[0].childNodes[0].nodeValue;
+			 						var scale_z = objects[o].getElementsByTagName("scale_z")[0].childNodes[0].nodeValue;
+			 						var rotate_x = objects[o].getElementsByTagName("rotation_x")[0].childNodes[0].nodeValue;
+			 						var rotate_y = objects[o].getElementsByTagName("rotation_y")[0].childNodes[0].nodeValue;
+			 						var rotate_z = objects[o].getElementsByTagName("rotation_z")[0].childNodes[0].nodeValue;
+			 						var color = parseInt(objects[o].getElementsByTagName("color")[0].childNodes[0].nodeValue);
+			 						var att1 = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
+			 						var object = new TTSObject(id,'sphere',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
+			 								rotate_y,rotate_z,color,att1);
+			 						
+			 						TTSModels.push(object);
+								}
+		 					};
+		 					break;
+		 	case 'box': if(objects[o].getElementsByTagName("type")[0].childNodes[0].nodeValue == 'box')
+						{
+							var id = objects[o].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+							for(var i = 0 ; i < TTSModels.length; i++){
+								if(TTSModels[i].id == id){
+									exist = true;
+									alert("object:" + id +" ALREADY EXISTS!");
+									break;
+								}
+							}
+							if(exist === false){
+								var translation_x = objects[o].getElementsByTagName("translation_x")[0].childNodes[0].nodeValue;
+								var translation_y = objects[o].getElementsByTagName("translation_y")[0].childNodes[0].nodeValue;
+								var translation_z = objects[o].getElementsByTagName("translation_z")[0].childNodes[0].nodeValue;
+								var scale_x = objects[o].getElementsByTagName("scale_x")[0].childNodes[0].nodeValue;
+								var scale_y = objects[o].getElementsByTagName("scale_y")[0].childNodes[0].nodeValue;
+								var scale_z = objects[o].getElementsByTagName("scale_z")[0].childNodes[0].nodeValue;
+								var rotate_x = objects[o].getElementsByTagName("rotation_x")[0].childNodes[0].nodeValue;
+								var rotate_y = objects[o].getElementsByTagName("rotation_y")[0].childNodes[0].nodeValue;
+								var rotate_z = objects[o].getElementsByTagName("rotation_z")[0].childNodes[0].nodeValue;
+								var color = parseInt(objects[o].getElementsByTagName("color")[0].childNodes[0].nodeValue);
+								var att1 = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
+								var att2 = objects[o].getElementsByTagName("att2")[0].childNodes[0].nodeValue;
+								var att3 = objects[o].getElementsByTagName("att3")[0].childNodes[0].nodeValue;
+								var object = new TTSObject(id,'box',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
+										rotate_y,rotate_z,color,att1,att2,att3);
+								TTSModels.push(object);
+							}
+						};
+						break;
+		 	default: break;
+		 	}
+
 		}
 
 }
-
-
