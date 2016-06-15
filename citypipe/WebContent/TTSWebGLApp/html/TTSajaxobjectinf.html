@@ -51,6 +51,7 @@
 	}
 	function resetCamera(){
 		camera.position.set( 10, 10, 50 );
+		camera.up.set(0,1,0);
 	}
 	var light = new THREE.AmbientLight( 0x404040 ); // add ambient light,soft white light
 	scene.add( light );
