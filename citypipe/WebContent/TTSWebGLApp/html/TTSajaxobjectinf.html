@@ -6,8 +6,11 @@
 	<meta http-equiv="Expires" content="0">
 	<title>TTSajaxobjectinf</title>
 	<style>
+	#outputmsg{
+		width:500px;
+	}
 		#view{
-			position:fixed;
+			position:absolute;
 			right:0;
 			top:0;
 			z-index:1;
@@ -19,11 +22,13 @@
 	</style>
 </head>
 <body>
+	<div id="input">
 	<h2>get object information from object id</h2>
-	<h2>table objects stores objectid 1,2,3 currently</h2>
+	<h2>table objects stores objectid 1,2,3,4 currently</h2>
 	<input  name="id"  style="width:200px" type="Text" value="" id="input_id" placeholder="object id"/>
 	<input  name="But_Get"   type="Button" value="Get" id="But_Get" onClick="return ClickEventActionHandlerButGet('/citypipe/ObjectServletInfo');" />
-	<div id="outputmsg"></div>
+	</div>	
+	<div id="outputmsg"></div>	
 	<div id="view">
 		<canvas id="webgl" width="800" height="600"></canvas>
 		<div id="time">time t: <span id = "time_elapsed"></span></div>
@@ -31,8 +36,7 @@
 			<button onclick = clearCanvas()>clear canvas</button>
 			<button onclick = resetTime()>reset time</button>
 			<button onclick = resetCamera()>reset camera</button>
-		</div>
-		<div>
+			<br>
 			<button onclick = stopTime() id="stopTime">stop</button>
 			<button onclick = startTime() id="startTime">start</button>
 		</div>
@@ -85,7 +89,7 @@
 	light.position.set(10, 10, 50);
 	scene.add(light);
 	//add object through TTSObject class
-	//var obj = new TTSObject(7,'sphere','t','t',0,1,1,1,0,0,0,0x0000ff,5);
+	//var obj = new TTSObject(7,'box','0','0',0,1,1,1,0,0,0,0x00ffff,2,5,2);
 	//TTSModels.push(obj);
 	function render() {
 		if(!pause){

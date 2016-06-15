@@ -16,6 +16,9 @@ function TTSObject(id,pipetype,tx,ty,tz,sx,sy,sz,rx,ry,rz,c,att1,att2,att3,att4)
 	this.rotation_z = rz;
 	this.color = c;
 	this.att1 = att1;
+	this.att2 = att2||0;
+	this.att3 = att3||0;
+	this.att4 = att4||0;
 	this.mesh = null;	
 }
 TTSObject.prototype.removeFromScene = function()
@@ -40,7 +43,7 @@ TTSObject.prototype.addToScene = function(t)
 		//add to scene according to the object type
 		if(this.type=='sphere')
 		{			
-			var sphere = new THREE.SphereGeometry( this.att1, 30, 30 );
+			var sphere = new THREE.SphereGeometry(this.att1, 30, 30);
 			var material = new THREE.MeshLambertMaterial({color: this.color, side: THREE.DoubleSide});
 			var mesh = new THREE.Mesh(sphere, material);
 			mesh.rotation.x = rx;
@@ -53,6 +56,24 @@ TTSObject.prototype.addToScene = function(t)
 			mesh.scale.y = sy;
 			mesh.scale.z = sz;
 			mesh.objname ='sphere';	
+			this.mesh = mesh;
+			scene.add(this.mesh);
+		}
+		if(this.type=='box')
+		{			
+			var box = new THREE.BoxGeometry(this.att1,this.att2,this.att3);
+			var material = new THREE.MeshLambertMaterial({color: this.color, side: THREE.DoubleSide});
+			var mesh = new THREE.Mesh(box, material);
+			mesh.rotation.x = rx;
+			mesh.rotation.y = ry;
+			mesh.rotation.z = rz;
+			mesh.position.x = tx; 
+			mesh.position.y = ty;
+			mesh.position.z = tz;
+			mesh.scale.x = sx;
+			mesh.scale.y = sy;
+			mesh.scale.z = sz;
+			mesh.objname ='box';	
 			this.mesh = mesh;
 			scene.add(this.mesh);
 		}
