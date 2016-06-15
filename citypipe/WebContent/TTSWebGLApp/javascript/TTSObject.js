@@ -14,9 +14,9 @@ function TTSObject(id,pipetype,tx,ty,tz,sx,sy,sz,rx,ry,rz,c,att1,att2,att3,att4)
 	this.rotation_x = rx;
 	this.rotation_y = ry;
 	this.rotation_z = rz;
-	this.color=c;
+	this.color = c;
 	this.att1 = att1;
-	this.mesh=null;	
+	this.mesh = null;	
 }
 TTSObject.prototype.removeFromScene = function()
 {
@@ -41,32 +41,32 @@ TTSObject.prototype.addToScene = function(t)
 		if(this.type=='sphere')
 		{			
 			var sphere = new THREE.SphereGeometry( this.att1, 30, 30 );
-			var material = new THREE.MeshLambertMaterial( { color: this.color, side: THREE.DoubleSide } );
-			var mesh = new THREE.Mesh( sphere, material );
-			mesh.rotation.x=rx;
-			mesh.rotation.y=ry;
-			mesh.rotation.z=rz;
-			mesh.position.x=tx; 
-			mesh.position.y=ty;
-			mesh.position.z=tz;
-			mesh.scale.x=sx;
-			mesh.scale.y=sy;
-			mesh.scale.z=sz;
-			mesh.objname='sphere';	
-			this.mesh=mesh;
+			var material = new THREE.MeshLambertMaterial({color: this.color, side: THREE.DoubleSide});
+			var mesh = new THREE.Mesh(sphere, material);
+			mesh.rotation.x = rx;
+			mesh.rotation.y = ry;
+			mesh.rotation.z = rz;
+			mesh.position.x = tx; 
+			mesh.position.y = ty;
+			mesh.position.z = tz;
+			mesh.scale.x = sx;
+			mesh.scale.y = sy;
+			mesh.scale.z = sz;
+			mesh.objname ='sphere';	
+			this.mesh = mesh;
 			scene.add(this.mesh);
 		}
 	}
 	else if(this.mesh !== null){
 		//refresh the mesh position....
-		this.mesh.rotation.x=rx;
-		this.mesh.rotation.y=ry;
-		this.mesh.rotation.z=rz;
-		this.mesh.position.x=tx; 
-		this.mesh.position.y=ty;
-		this.mesh.position.z=tz;
-		this.mesh.scale.x=sx;
-		this.mesh.scale.y=sy;
-		this.mesh.scale.z=sz;	
+		this.mesh.rotation.x = rx;
+		this.mesh.rotation.y = ry;
+		this.mesh.rotation.z = rz;
+		this.mesh.position.x = tx; 
+		this.mesh.position.y = ty;
+		this.mesh.position.z = tz;
+		this.mesh.scale.x = sx;
+		this.mesh.scale.y = sy;
+		this.mesh.scale.z = sz;	
 	}
 }
