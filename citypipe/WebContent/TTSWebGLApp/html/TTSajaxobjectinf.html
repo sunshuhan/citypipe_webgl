@@ -4,26 +4,32 @@
 	<meta http-equiv="progma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache,must-revalidate">
 	<meta http-equiv="Expires" content="0">
-	<title>ajax</title>
+	<title>TTSajaxobjectinf</title>
 	<style>
 		#view{
 			position:fixed;
 			right:0;
 			top:0;
 			z-index:1;
-			border: solid 1px;
+			border: solid 1px #a0a0a0;
+		}
+		canvas{
+			border: 1px solid #c0c0c0;
 		}
 	</style>
 </head>
 <script src="../javascript/ClientEventPublicHandler.js"></script>
 <body>
 	<h2>get object information from object id</h2>
-	<h2>table objects stores objectid 1,2,currently</h2>
+	<h2>table objects stores objectid 1,2,3 currently</h2>
 	<input  name="id"  style="width:200px" type="Text" value="" id="input_id" placeholder="object id"/>
 	<input  name="But_Get"   type="Button" value="Get" id="But_Get" onClick="return ClickEventActionHandlerButGet('/citypipe/ObjectServletInfo');" />
 	<div id="outputmsg"></div>
-	<div id="view"><canvas id="webgl" width="800" height="600"></canvas></div>
-	<div id="time">t:<span id = "time_elapsed"></span></div>
+	<div id="view">
+		<canvas id="webgl" width="800" height="600"></canvas>
+		<div id="time">time t: <span id = "time_elapsed"></span></div>
+	</div>
+	
 	<script src="../javascript/three.min.js"></script>
 	<script src="../javascript/TrackballControls.js"></script>
 	<script src="../javascript/TTSDefaultSetting.js"></script>
@@ -51,8 +57,6 @@
 		for(var i = 0 ; i < TTSModels.length; i++){
 			TTSModels[i].addToScene(t);
 		}
-
-		//TTSModels[0].mesh.position.x = t;
 		trackballControl.update();
 		renderer.render( scene, camera );
 	}
