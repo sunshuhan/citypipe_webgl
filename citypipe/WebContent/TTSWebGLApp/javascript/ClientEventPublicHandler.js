@@ -119,6 +119,10 @@ function renderxml(xml)
 				var radius = objects[o].getElementsByTagName("att1")[0].childNodes[0].nodeValue;
 				var object = new TTSObject(id,'sphere',translation_x,translation_y,translation_z,scale_x,scale_y,scale_z,rotate_x,
 						rotate_y,rotate_z,color,radius);
+				for(var i = 0 ; i < TTSModels.length; i++){
+					if(TTSModels[i].id == id)
+						alert("object:" + id +" ALREADY EXISTS!");
+				}
 				TTSModels.push(object);
 			}
 		}

@@ -30,9 +30,11 @@
 		<div>
 			<button onclick = clearCanvas()>clear canvas</button>
 			<button onclick = resetTime()>reset time</button>
-			<button onclick = stopTime()>stop</button>
-			<button onclick = startTime()>start</button>
 			<button onclick = resetCamera()>reset camera</button>
+		</div>
+		<div>
+			<button onclick = stopTime() id="stopTime">stop</button>
+			<button onclick = startTime() id="startTime">start</button>
 		</div>
 	</div>
 	
@@ -62,6 +64,8 @@
 		if(timestop === null){
 			timestop = Date.now();
 			pause = true;
+			document.getElementById("stopTime").style.color = "red";
+			document.getElementById("startTime").style.color = "green";
 		}
 	}
 	function startTime(){
@@ -71,6 +75,8 @@
 		pause = false;
 		timestart = null;
 		timestop = null;
+		document.getElementById("stopTime").style.color = "black";
+		document.getElementById("startTime").style.color = "black";
 		}
 	}
 	var light = new THREE.AmbientLight(0x404040); // add ambient light,soft white light
@@ -82,8 +88,10 @@
 	//var obj = new TTSObject(7,'sphere','t','t',0,1,1,1,0,0,0,0x0000ff,5);
 	//TTSModels.push(obj);
 	function render() {
-		var now = Date.now();
-		t = (now - last) * 0.001;
+		if(!pause){
+			var now = Date.now();
+			t = (now - last) * 0.001;
+		}
 		document.getElementById("time_elapsed").innerHTML = Math.floor(t);
 		for(var i = 0 ; i < TTSModels.length; i++){
 			TTSModels[i].addToScene(t);
@@ -93,7 +101,6 @@
 	}
 	function animate() {
 		requestAnimationFrame(animate);
-		if(!pause)
 		render();
 	}
 	animate();
