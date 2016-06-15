@@ -28,6 +28,10 @@
 	<div id="view">
 		<canvas id="webgl" width="800" height="600"></canvas>
 		<div id="time">time t: <span id = "time_elapsed"></span></div>
+		<div>
+			<button onclick = clearCanvas()>clear canvas</button>
+			<button onclick = resetTime()>rest time</button>
+		</div>
 	</div>
 	
 	<script src="../javascript/three.min.js"></script>
@@ -35,6 +39,15 @@
 	<script src="../javascript/TTSDefaultSetting.js"></script>
 	<script src="../javascript/TTSObject.js"></script>
 	<script>
+	function clearCanvas(){
+		for(var i = 0 ; i < TTSModels.length; i++){
+			TTSModels[i].removeFromScene();
+		}
+		TTSModels.length = 0;
+	}
+	function resetTime(){
+		last = Date.now();
+	}
 	var light = new THREE.AmbientLight( 0x404040 ); // add ambient light,soft white light
 	scene.add( light );
 	var light = new THREE.PointLight( 0x808080, 1, 100 );//add point light
