@@ -417,9 +417,9 @@ THREE.TrackballControls = function ( object, domElement ) {
 			_panEnd.copy(_panStart);
 
 		}
-		
+		//get mouse position, use raycaster to get the intersected object
 		//pick objects, change color of the picked object
-		
+		rect = canvas.getBoundingClientRect();
 		mouse.x = (( event.clientX-rect.left)/ rect.width ) * 2 - 1;
 		mouse.y = - ( (event.clientY-rect.top)/ rect.height ) * 2 + 1;
 		raycaster.setFromCamera( mouse, camera );
