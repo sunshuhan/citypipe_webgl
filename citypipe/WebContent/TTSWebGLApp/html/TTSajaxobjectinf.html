@@ -18,7 +18,6 @@
 		}
 	</style>
 </head>
-<script src="../javascript/ClientEventPublicHandler.js"></script>
 <body>
 	<h2>get object information from object id</h2>
 	<h2>table objects stores objectid 1,2,3 currently</h2>
@@ -31,12 +30,15 @@
 		<div>
 			<button onclick = clearCanvas()>clear canvas</button>
 			<button onclick = resetTime()>reset time</button>
+			<button onclick = stopTime()>stop</button>
+			<button onclick = startTime()>start</button>
 			<button onclick = resetCamera()>reset camera</button>
 		</div>
 	</div>
 	
 	<script src="../javascript/three.min.js"></script>
 	<script src="../javascript/TrackballControls.js"></script>
+	<script src="../javascript/ClientEventPublicHandler.js"></script>
 	<script src="../javascript/TTSDefaultSetting.js"></script>
 	<script src="../javascript/TTSObject.js"></script>
 	<script>
@@ -53,26 +55,45 @@
 		camera.position.set( 10, 10, 50 );
 		camera.up.set(0,1,0);
 	}
-	var light = new THREE.AmbientLight( 0x404040 ); // add ambient light,soft white light
-	scene.add( light );
-	var light = new THREE.PointLight( 0x808080, 1, 100 );//add point light
-	light.position.set( 10, 10, 50 );
-	scene.add( light );
+	var pause = false;
+	var timestop = null;
+	var timestart = null;
+	function stopTime(){
+		if(timestop === null){
+			timestop = Date.now();
+			pause = true;
+		}
+	}
+	function startTime(){
+		if(timestart == null && timestop != null){
+		timestart = Date.now();
+		last = last + timestart - timestop;
+		pause = false;
+		timestart = null;
+		timestop = null;
+		}
+	}
+	var light = new THREE.AmbientLight(0x404040); // add ambient light,soft white light
+	scene.add(light);
+	var light = new THREE.PointLight(0x808080, 1, 100 ;//add point light
+	light.position.set(10, 10, 50);
+	scene.add(light);
 	//add object through TTSObject class
 	//var obj = new TTSObject(7,'sphere','t','t',0,1,1,1,0,0,0,0x0000ff,5);
 	//TTSModels.push(obj);
 	function render() {
 		var now = Date.now();
-		t = (now-last)*0.001;
+		t = (now - last) * 0.001;
 		document.getElementById("time_elapsed").innerHTML = Math.floor(t);
 		for(var i = 0 ; i < TTSModels.length; i++){
 			TTSModels[i].addToScene(t);
 		}
 		trackballControl.update();
-		renderer.render( scene, camera );
+		renderer.render(scene, camera);
 	}
 	function animate() {
-		requestAnimationFrame( animate );
+		requestAnimationFrame(animate);
+		if(!pause)
 		render();
 	}
 	animate();
